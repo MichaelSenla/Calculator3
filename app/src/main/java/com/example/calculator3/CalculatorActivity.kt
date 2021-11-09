@@ -13,6 +13,8 @@ class CalculatorActivity : AppCompatActivity() {
         private const val RESULT_KEY = "RESULT_KEY"
         private const val MATH_OPERATIONS_KEY = "MATH_OPERATIONS_KEY"
         private const val RESULT = "RESULT"
+        private const val RESULT_CODE = 1
+        private const val DIVISION_BY_ZERO = "/0"
     }
 
     private lateinit var binding: ActivityCalculatorBinding
@@ -75,7 +77,7 @@ class CalculatorActivity : AppCompatActivity() {
             binding.resultText.text = ""
         }
         binding.equality.setOnClickListener {
-            if (binding.mathOperations.text.contains("/0")) {
+            if (binding.mathOperations.text.contains(DIVISION_BY_ZERO)) {
                 binding.mathOperations.text = getString(R.string.divisionByZero)
             } else {
                 val expression = ExpressionBuilder(binding.mathOperations.text.toString()).build()
@@ -95,7 +97,7 @@ class CalculatorActivity : AppCompatActivity() {
             val currentNumber = binding.resultText.text
             val intent = Intent()
             intent.putExtra(RESULT, currentNumber)
-            setResult(1, intent)
+            setResult(RESULT_CODE, intent)
             finish()
         }
     }

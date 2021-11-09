@@ -11,6 +11,9 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         private const val RESULT = "RESULT"
+        private const val LINE_SEPARATOR = "\n"
+        private const val SHARED_PREFERENCES = "SHARED_PREFERENCES"
+        private const val REQUEST_CODE = 1
     }
 
     private lateinit var binding: ActivityMainBinding
@@ -23,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         loadDataFromSharedPreferences()
         binding.calculatorButton.setOnClickListener {
             val intent = Intent(this, CalculatorActivity::class.java)
-            startActivityForResult(intent, 1)
+            startActivityForResult(intent, REQUEST_CODE)
         }
         saveButtonListener(null)
     }
@@ -37,7 +40,7 @@ class MainActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == 1) {
+        if (requestCode == REQUEST_CODE) {
             val result = data?.getStringExtra(RESULT)
             binding.currentValueResult.text = result
             val lastResult = appendNewValue(result)
@@ -46,7 +49,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadDataFromSharedPreferences() {
-        val sharedPreferences = getSharedPreferences("sharedPreferences", Context.MODE_PRIVATE)
+        val sharedPreferences = getSharedPreferences(SHARED_PREFERENCES, Context.MODE_PRIVATE)
         var savedResult = sharedPreferences.getString(RESULT, null)
         savedResult = appendNewValue(savedResult)
         binding.firstSavedValueText.text = savedResult
@@ -55,7 +58,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun saveButtonListener(result: String?) {
         binding.saveButton.setOnClickListener {
-            sharedPreferences = getSharedPreferences("sharedPreferences", Context.MODE_PRIVATE)
+            sharedPreferences = getSharedPreferences(SHARED_PREFERENCES, Context.MODE_PRIVATE)
             val editor = sharedPreferences.edit()
             editor.apply {
                 putString(RESULT, result)
@@ -65,7 +68,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun appendNewValue(anotherResult: String?): String {
         val result = binding.firstSavedValueText.text.toString()
-        val lastResult = StringBuilder(result).append("\n").append(anotherResult)
+        val lastResult = StringBuilder(result).append(LINE_SEPARATOR).append(anotherResult)
 
         return lastResult.toString()
     }
