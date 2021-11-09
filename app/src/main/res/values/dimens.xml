@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="top_margin">4dp</dimen>
+    <dimen name="start_margin">8dp</dimen>
+    <dimen name="end_padding">4dp</dimen>
+    <dimen name="shown_text_size">32sp</dimen>
+    <dimen name="saved_values_top_margin">32dp</dimen>
+    <dimen name="current_value_result_start_margin">32dp</dimen>
+    <dimen name="current_value_result_top_margin">12dp</dimen>
+    <dimen name="current_value_top_margin_landscape">18dp</dimen>
+    <dimen name="save_button_top_margin">4dp</dimen>
+    <dimen name="activity_main_text_size">24sp</dimen>
+    <dimen name="activity_main_text_size_landscape">24sp</dimen>
+    <dimen name="activity_main_text_size_for_buttons">18sp</dimen>
+    <dimen name="activity_main_text_size_for_buttons_landscape">20sp</dimen>
+    <dimen name="end_margin">8dp</dimen>
+    <dimen name="save_button_end_margin">12dp</dimen>
+    <dimen name="save_button_padding">12dp</dimen>
+    <dimen name="calculator_button_margin">12dp</dimen>
+    <dimen name="calculator_button_padding">12dp</dimen>
+</resources>
