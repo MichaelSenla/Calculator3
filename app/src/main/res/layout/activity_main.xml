@@ -20,10 +20,10 @@
         app:layout_constraintBottom_toTopOf="@id/currentValueText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/guideline">
+        app:layout_constraintTop_toTopOf="@id/guideline">
 
         <TextView
-            android:id="@+id/firstSavedValueText"
+            android:id="@+id/savedValueText"
             style="@style/SavedValues"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
@@ -47,10 +47,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/current_value_result_start_margin"
         android:layout_marginTop="@dimen/current_value_result_top_margin"
-        android:gravity="center|bottom"
+        android:layout_marginBottom="@dimen/current_value_result_bottom_margin"
+        android:gravity="center"
         android:textColor="@color/black"
         android:textSize="@dimen/activity_main_text_size"
-        app:layout_constraintEnd_toStartOf="@id/guideline3"
+        app:layout_constraintBottom_toBottomOf="@id/saveButton"
+        app:layout_constraintEnd_toStartOf="@id/saveButton"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/currentValueText" />
 
     <com.google.android.material.button.MaterialButton
@@ -63,7 +66,7 @@
         android:padding="@dimen/save_button_padding"
         android:text="@string/save_button_label"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/guideline4"
+        app:layout_constraintStart_toEndOf="@id/guideline3"
         app:layout_constraintTop_toBottomOf="@id/currentValueText" />
 
     <com.google.android.material.button.MaterialButton
@@ -71,12 +74,13 @@
         style="@style/ActivityMainButtons"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/calculator_button_margin"
+        android:layout_marginHorizontal="@dimen/calculator_button_horizontal_margin"
+        android:layout_marginTop="@dimen/calculator_button_top_margin"
         android:padding="@dimen/calculator_button_padding"
         android:text="@string/calculator_button_label"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/guideline5" />
+        app:layout_constraintTop_toBottomOf="@id/saveButton" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -97,19 +101,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.292" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
         app:layout_constraintGuide_percent="0.568" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.68" />
 </androidx.constraintlayout.widget.ConstraintLayout>

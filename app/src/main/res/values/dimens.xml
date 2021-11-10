@@ -6,7 +6,8 @@
     <dimen name="shown_text_size">32sp</dimen>
     <dimen name="saved_values_top_margin">32dp</dimen>
     <dimen name="current_value_result_start_margin">32dp</dimen>
-    <dimen name="current_value_result_top_margin">12dp</dimen>
+    <dimen name="current_value_result_top_margin">8dp</dimen>
+    <dimen name="current_value_result_top_margin_landscape">8dp</dimen>
     <dimen name="current_value_top_margin_landscape">18dp</dimen>
     <dimen name="save_button_top_margin">4dp</dimen>
     <dimen name="activity_main_text_size">24sp</dimen>
@@ -16,6 +17,10 @@
     <dimen name="end_margin">8dp</dimen>
     <dimen name="save_button_end_margin">12dp</dimen>
     <dimen name="save_button_padding">12dp</dimen>
-    <dimen name="calculator_button_margin">12dp</dimen>
+    <dimen name="calculator_button_horizontal_margin">12dp</dimen>
+    <dimen name="calculator_button_top_margin">8dp</dimen>
+    <dimen name="calculator_button_top_margin_landscape">4dp</dimen>
     <dimen name="calculator_button_padding">12dp</dimen>
+    <dimen name="current_value_result_bottom_margin">8dp</dimen>
+    <dimen name="current_value_result_padding_end">8dp</dimen>
 </resources>

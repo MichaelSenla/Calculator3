@@ -1,6 +1,5 @@
 package com.example.calculator3
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.calculator3.databinding.ActivityCalculatorBinding
@@ -12,8 +11,7 @@ class CalculatorActivity : AppCompatActivity() {
     companion object {
         private const val RESULT_KEY = "RESULT_KEY"
         private const val MATH_OPERATIONS_KEY = "MATH_OPERATIONS_KEY"
-        private const val RESULT = "RESULT"
-        private const val RESULT_CODE = 1
+        private const val EXTRA_RESULT = "RESULT"
         private const val DIVISION_BY_ZERO = "/0"
     }
 
@@ -25,52 +23,51 @@ class CalculatorActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setListeners()
-
-        setOkayButton()
+        setOkayListener()
     }
 
     private fun setListeners() {
         binding.buttonZero.setOnClickListener {
-            setTextFields("0")
+            inputValue("0")
         }
         binding.buttonOne.setOnClickListener {
-            setTextFields("1")
+            inputValue("1")
         }
         binding.buttonTwo.setOnClickListener {
-            setTextFields("2")
+            inputValue("2")
         }
         binding.buttonThree.setOnClickListener {
-            setTextFields("3")
+            inputValue("3")
         }
         binding.buttonFour.setOnClickListener {
-            setTextFields("4")
+            inputValue("4")
         }
         binding.buttonFive.setOnClickListener {
-            setTextFields("5")
+            inputValue("5")
         }
         binding.buttonSix.setOnClickListener {
-            setTextFields("6")
+            inputValue("6")
         }
         binding.buttonSeven.setOnClickListener {
-            setTextFields("7")
+            inputValue("7")
         }
         binding.buttonEight.setOnClickListener {
-            setTextFields("8")
+            inputValue("8")
         }
         binding.buttonNine.setOnClickListener {
-            setTextFields("9")
+            inputValue("9")
         }
         binding.subtraction.setOnClickListener {
-            setTextFields("-")
+            inputValue("-")
         }
         binding.addition.setOnClickListener {
-            setTextFields("+")
+            inputValue("+")
         }
         binding.division.setOnClickListener {
-            setTextFields("/")
+            inputValue("/")
         }
         binding.multiplication.setOnClickListener {
-            setTextFields("*")
+            inputValue("*")
         }
         binding.clearButton.setOnClickListener {
             binding.mathOperations.text = ""
@@ -80,24 +77,17 @@ class CalculatorActivity : AppCompatActivity() {
             if (binding.mathOperations.text.contains(DIVISION_BY_ZERO)) {
                 binding.mathOperations.text = getString(R.string.divisionByZero)
             } else {
-                val expression = ExpressionBuilder(binding.mathOperations.text.toString()).build()
-                val result = expression.evaluate()
-                val longResult = result.toLong()
-                if (result == longResult.toDouble()) {
-                    binding.resultText.text = longResult.toString()
-                } else {
-                    binding.resultText.text = result.toString()
-                }
+                settingUpMathLibrary()
+                checkingIfTheNumberIsDouble(settingUpMathLibrary())
             }
         }
     }
 
-    private fun setOkayButton() {
+    private fun setOkayListener() {
         binding.okayButton.setOnClickListener {
-            val currentNumber = binding.resultText.text
-            val intent = Intent()
-            intent.putExtra(RESULT, currentNumber)
-            setResult(RESULT_CODE, intent)
+            setResult(RESULT_OK, intent.apply {
+                putExtra(EXTRA_RESULT, binding.resultText.text)
+            })
             finish()
         }
     }
@@ -105,26 +95,37 @@ class CalculatorActivity : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
-        val mathOperations = binding.mathOperations.text.toString()
-        val result = binding.resultText.text.toString()
-        outState.putString(MATH_OPERATIONS_KEY, mathOperations)
-        outState.putString(RESULT_KEY, result)
+        outState.putString(MATH_OPERATIONS_KEY, binding.mathOperations.text.toString())
+        outState.putString(RESULT_KEY, binding.resultText.text.toString())
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
 
-        val mathOperations = savedInstanceState.getString(MATH_OPERATIONS_KEY)
-        val result = savedInstanceState.getString(RESULT_KEY)
-        binding.mathOperations.text = mathOperations
-        binding.resultText.text = result
+        binding.mathOperations.text = savedInstanceState.getString(MATH_OPERATIONS_KEY)
+        binding.resultText.text = savedInstanceState.getString(RESULT_KEY)
     }
 
-    private fun setTextFields(str: String) {
+    private fun inputValue(str: String) {
         if (resultText.text.isNotEmpty()) {
             binding.mathOperations.text = binding.resultText.text
             binding.resultText.text = ""
         }
         binding.mathOperations.append(str)
+    }
+
+    private fun settingUpMathLibrary(): Double {
+        val expression = ExpressionBuilder(binding.mathOperations.text.toString()).build()
+
+        return expression.evaluate()
+    }
+
+    private fun checkingIfTheNumberIsDouble(result: Double) {
+        val longResult = result.toLong()
+        if (result == longResult.toDouble()) {
+            binding.resultText.text = longResult.toString()
+        } else {
+            binding.resultText.text = result.toString()
+        }
     }
 }
