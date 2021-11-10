@@ -1,11 +1,12 @@
 package com.example.calculator3
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
+import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import com.example.calculator3.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -25,12 +26,14 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        sharedPreferences = getSharedPreferences(SHARED_PREFERENCES, Context.MODE_PRIVATE)
         loadDataFromSharedPreferences()
+        saveButtonListener()
         binding.calculatorButton.setOnClickListener {
             val intent = Intent(this, CalculatorActivity::class.java)
             startActivityForResult(intent, REQUEST_CODE)
         }
-        saveButtonListener()
+        binding.savedValueText.movementMethod = ScrollingMovementMethod()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -43,14 +46,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadDataFromSharedPreferences() {
-        val sharedPreferences = getSharedPreferences(SHARED_PREFERENCES, Context.MODE_PRIVATE)
-        val savedResult = sharedPreferences.getString(EXTRA_RESULT, null)
-        binding.savedValueText.text = savedResult
+        binding.savedValueText.text = sharedPreferences.getString(EXTRA_RESULT, null)
+        Log.e("Smt", "${sharedPreferences.getString(EXTRA_RESULT, null)}")
     }
 
     private fun saveButtonListener() {
         binding.saveButton.setOnClickListener {
-            sharedPreferences = getSharedPreferences(SHARED_PREFERENCES, Context.MODE_PRIVATE)
             sharedPreferences.edit().apply {
                 putString(EXTRA_RESULT, appendNewValue(binding.currentValueResult.text.toString()))
             }.apply()

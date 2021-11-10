@@ -22,11 +22,12 @@ class CalculatorActivity : AppCompatActivity() {
         binding = ActivityCalculatorBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setListeners()
-        setOkayListener()
+        setInputValueListeners()
+        setEqualityButtonListener()
+        setOkayButtonListener()
     }
 
-    private fun setListeners() {
+    private fun setInputValueListeners() {
         binding.buttonZero.setOnClickListener {
             inputValue("0")
         }
@@ -73,17 +74,9 @@ class CalculatorActivity : AppCompatActivity() {
             binding.mathOperations.text = ""
             binding.resultText.text = ""
         }
-        binding.equality.setOnClickListener {
-            if (binding.mathOperations.text.contains(DIVISION_BY_ZERO)) {
-                binding.mathOperations.text = getString(R.string.divisionByZero)
-            } else {
-                settingUpMathLibrary()
-                checkingIfTheNumberIsDouble(settingUpMathLibrary())
-            }
-        }
     }
 
-    private fun setOkayListener() {
+    private fun setOkayButtonListener() {
         binding.okayButton.setOnClickListener {
             setResult(RESULT_OK, intent.apply {
                 putExtra(EXTRA_RESULT, binding.resultText.text)
@@ -106,19 +99,16 @@ class CalculatorActivity : AppCompatActivity() {
         binding.resultText.text = savedInstanceState.getString(RESULT_KEY)
     }
 
-    private fun inputValue(str: String) {
+    private fun inputValue(input: String) {
         if (resultText.text.isNotEmpty()) {
             binding.mathOperations.text = binding.resultText.text
             binding.resultText.text = ""
         }
-        binding.mathOperations.append(str)
+        binding.mathOperations.append(input)
     }
 
-    private fun settingUpMathLibrary(): Double {
-        val expression = ExpressionBuilder(binding.mathOperations.text.toString()).build()
-
-        return expression.evaluate()
-    }
+    private fun calculateValue(): Double =
+        ExpressionBuilder(binding.mathOperations.text.toString()).build().evaluate()
 
     private fun checkingIfTheNumberIsDouble(result: Double) {
         val longResult = result.toLong()
@@ -126,6 +116,18 @@ class CalculatorActivity : AppCompatActivity() {
             binding.resultText.text = longResult.toString()
         } else {
             binding.resultText.text = result.toString()
+        }
+    }
+
+    private fun setEqualityButtonListener() {
+        binding.equality.setOnClickListener {
+            if (binding.mathOperations.text.contains(com.example.calculator3.CalculatorActivity.DIVISION_BY_ZERO)) {
+                binding.mathOperations.text =
+                    getString(com.example.calculator3.R.string.activity_calculator_division_by_zero)
+            } else {
+                calculateValue()
+                checkingIfTheNumberIsDouble(calculateValue())
+            }
         }
     }
 }

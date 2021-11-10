@@ -1,31 +1,27 @@
 <resources>
     <string name="app_name">Calculator3</string>
-    <string name="divisionByZero">ERROR</string>
-    <string name="clear_text">C</string>
-    <string name="okay_label">OK</string>
-    <string name="number_six_label">6</string>
-    <string name="multiplication_star_label">*</string>
-    <string name="division_label">/</string>
-    <string name="number_nine_label">9</string>
-    <string name="number_three_label">3</string>
-    <string name="number_two_label">2</string>
-    <string name="number_four_label">4</string>
-    <string name="number_seven_label">7</string>
-    <string name="number_one_label">1</string>
-    <string name="subtraction_minus_label">-</string>
-    <string name="number_eight_label">8</string>
-    <string name="number_five_label">5</string>
-    <string name="number_zero_label">0</string>
-    <string name="equality_label">=</string>
-    <string name="addition_plus_label">+</string>
-    <string name="saved_values_label">Сохранённые значения:</string>
-    <string name="first_saved_value_label">10</string>
-    <string name="second_saved_value_label">10</string>
-    <string name="third_saved_value_label">10</string>
-    <string name="fourth_saved_value_label">10</string>
-    <string name="fifth_saved_value_label">10</string>
-    <string name="current_value_label">Текущее значение:</string>
-    <string name="save_button_label">Сохранить</string>
-    <string name="calculator_button_label">Калькулятор</string>
-    <string name="calculator_label">Калькулятор</string>
+
+    <string name="activity_main_saved_values_label">Сохранённые значения:</string>
+    <string name="activity_main_current_value_label">Текущее значение:</string>
+    <string name="activity_main_save_button_label">Сохранить</string>
+    <string name="activity_main_calculator_button_label">Калькулятор</string>
+
+    <string name="activity_calculator_division_by_zero">ERROR</string>
+    <string name="activity_calculator_clear_text">C</string>
+    <string name="activity_calculator_okay_label">OK</string>
+    <string name="activity_calculator_number_six_label">6</string>
+    <string name="activity_calculator_multiplication_star_label">*</string>
+    <string name="activity_calculator_division_label">/</string>
+    <string name="activity_calculator_number_nine_label">9</string>
+    <string name="activity_calculator_number_three_label">3</string>
+    <string name="activity_calculator_number_two_label">2</string>
+    <string name="activity_calculator_number_four_label">4</string>
+    <string name="activity_calculator_number_seven_label">7</string>
+    <string name="activity_calculator_number_one_label">1</string>
+    <string name="activity_calculator_subtraction_minus_label">-</string>
+    <string name="activity_calculator_number_eight_label">8</string>
+    <string name="activity_calculator_number_five_label">5</string>
+    <string name="activity_calculator_number_zero_label">0</string>
+    <string name="activity_calculator_equality_label">=</string>
+    <string name="activity_calculator_addition_plus_label">+</string>
 </resources>
