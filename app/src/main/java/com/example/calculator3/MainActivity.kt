@@ -54,6 +54,7 @@ class MainActivity : AppCompatActivity() {
             sharedPreferences.edit().apply {
                 putString(EXTRA_RESULT, appendNewValue(binding.currentValueResult.text.toString()))
             }.apply()
+            binding.savedValueText.text = appendNewValue(binding.currentValueResult.text.toString())
         }
     }
 
