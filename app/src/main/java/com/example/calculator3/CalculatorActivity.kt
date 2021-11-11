@@ -1,10 +1,9 @@
 package com.example.calculator3
 
 import android.os.Bundle
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.example.calculator3.databinding.ActivityCalculatorBinding
-import kotlinx.android.synthetic.main.activity_calculator.*
-import net.objecthunter.exp4j.ExpressionBuilder
 
 class CalculatorActivity : AppCompatActivity() {
 
@@ -16,63 +15,66 @@ class CalculatorActivity : AppCompatActivity() {
     }
 
     private lateinit var binding: ActivityCalculatorBinding
+    private var canAddOperation = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCalculatorBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setInputValueListeners()
-        setEqualityButtonListener()
+        setInputListeners()
         setOkayButtonListener()
     }
 
-    private fun setInputValueListeners() {
+    private fun setInputListeners() {
+
         binding.buttonZero.setOnClickListener {
-            inputValue("0")
+            addNumberText(binding.buttonZero)
         }
         binding.buttonOne.setOnClickListener {
-            inputValue("1")
+            addNumberText(binding.buttonOne)
         }
         binding.buttonTwo.setOnClickListener {
-            inputValue("2")
+            addNumberText(binding.buttonTwo)
         }
         binding.buttonThree.setOnClickListener {
-            inputValue("3")
+            addNumberText(binding.buttonThree)
         }
         binding.buttonFour.setOnClickListener {
-            inputValue("4")
+            addNumberText(binding.buttonFour)
         }
         binding.buttonFive.setOnClickListener {
-            inputValue("5")
+            addNumberText(binding.buttonFive)
         }
         binding.buttonSix.setOnClickListener {
-            inputValue("6")
+            addNumberText(binding.buttonSix)
         }
         binding.buttonSeven.setOnClickListener {
-            inputValue("7")
+            addNumberText(binding.buttonSeven)
         }
         binding.buttonEight.setOnClickListener {
-            inputValue("8")
+            addNumberText(binding.buttonEight)
         }
         binding.buttonNine.setOnClickListener {
-            inputValue("9")
-        }
-        binding.subtraction.setOnClickListener {
-            inputValue("-")
-        }
-        binding.addition.setOnClickListener {
-            inputValue("+")
+            addNumberText(binding.buttonNine)
         }
         binding.division.setOnClickListener {
-            inputValue("/")
+            addOperationText(binding.division)
         }
         binding.multiplication.setOnClickListener {
-            inputValue("*")
+            addOperationText(binding.multiplication)
+        }
+        binding.subtraction.setOnClickListener {
+            addOperationText(binding.subtraction)
+        }
+        binding.addition.setOnClickListener {
+            addOperationText(binding.addition)
         }
         binding.clearButton.setOnClickListener {
-            binding.mathOperations.text = ""
-            binding.resultText.text = ""
+            clearTextViews()
+        }
+        binding.equality.setOnClickListener {
+            calculateResult()
         }
     }
 
@@ -83,6 +85,112 @@ class CalculatorActivity : AppCompatActivity() {
             })
             finish()
         }
+    }
+
+    private fun addNumberText(button: Button) {
+        binding.mathOperations.append(button.text)
+        canAddOperation = true
+    }
+
+    private fun addOperationText(button: Button) {
+        if (canAddOperation) {
+            binding.mathOperations.append(button.text)
+            canAddOperation = false
+        }
+    }
+
+    private fun clearTextViews() {
+        binding.mathOperations.text = ""
+        binding.resultText.text = ""
+    }
+
+    private fun calculateResult() {
+        if (binding.mathOperations.text.contains(DIVISION_BY_ZERO)) {
+            binding.equality.text = getString(R.string.activity_calculator_division_by_zero)
+        } else {
+            if (separateInputLine().isEmpty()) {
+                binding.resultText.text = ""
+            }
+            val timesDivision = finishCalculationTimesDivision(separateInputLine())
+            if (timesDivision.isEmpty()) {
+                binding.resultText.text = ""
+            }
+            binding.resultText.text = calculatePlusMinus(timesDivision).toString()
+        }
+    }
+
+    private fun calculatePlusMinus(passedList: MutableList<Any>): Int {
+        var result = passedList[0] as Int
+        for (i in passedList.indices) {
+            if (passedList[i] is Char && i != passedList.lastIndex) {
+                val operator = passedList[i]
+                val nextDigit = passedList[i + 1] as Int
+                if (operator == '+') {
+                    result += nextDigit
+                }
+                if (operator == '-') {
+                    result -= nextDigit
+                }
+            }
+        }
+        return result
+    }
+
+    private fun finishCalculationTimesDivision(passedList: MutableList<Any>): MutableList<Any> {
+        var list = passedList
+        while (list.contains('*') || list.contains('/')) {
+            list = startCalculationTimesDivision(list)
+        }
+        return list
+    }
+
+    private fun startCalculationTimesDivision(passedList: MutableList<Any>): MutableList<Any> {
+        val newList = mutableListOf<Any>()
+        var restartIndex = passedList.size
+
+        for (i in passedList.indices) {
+            if (passedList[i] is Char && i != passedList.lastIndex && i < restartIndex) {
+                val operator = passedList[i]
+                val prevDigit = passedList[i - 1] as Int
+                val nextDigit = passedList[i + 1] as Int
+                when (operator) {
+                    '*' -> {
+                        newList.add(prevDigit * nextDigit)
+                        restartIndex = i + 1
+                    }
+                    '/' -> {
+                        newList.add(prevDigit / nextDigit)
+                        restartIndex = i + 1
+                    }
+                    else -> {
+                        newList.add(prevDigit)
+                        newList.add(operator)
+                    }
+                }
+            }
+            if (i > restartIndex) {
+                newList.add(passedList[i])
+            }
+        }
+        return newList
+    }
+
+    private fun separateInputLine(): MutableList<Any> {
+        val list = mutableListOf<Any>()
+        var currentDigit = ""
+        for (character in binding.mathOperations.text) {
+            if (character.isDigit()) {
+                currentDigit += character
+            } else {
+                list.add(currentDigit.toInt())
+                currentDigit = ""
+                list.add(character)
+            }
+        }
+        if (currentDigit != "") {
+            list.add(currentDigit.toInt())
+        }
+        return list
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -99,35 +207,4 @@ class CalculatorActivity : AppCompatActivity() {
         binding.resultText.text = savedInstanceState.getString(RESULT_KEY)
     }
 
-    private fun inputValue(input: String) {
-        if (resultText.text.isNotEmpty()) {
-            binding.mathOperations.text = binding.resultText.text
-            binding.resultText.text = ""
-        }
-        binding.mathOperations.append(input)
-    }
-
-    private fun calculateValue(): Double =
-        ExpressionBuilder(binding.mathOperations.text.toString()).build().evaluate()
-
-    private fun checkingIfTheNumberIsDouble(result: Double) {
-        val longResult = result.toLong()
-        if (result == longResult.toDouble()) {
-            binding.resultText.text = longResult.toString()
-        } else {
-            binding.resultText.text = result.toString()
-        }
-    }
-
-    private fun setEqualityButtonListener() {
-        binding.equality.setOnClickListener {
-            if (binding.mathOperations.text.contains(com.example.calculator3.CalculatorActivity.DIVISION_BY_ZERO)) {
-                binding.mathOperations.text =
-                    getString(com.example.calculator3.R.string.activity_calculator_division_by_zero)
-            } else {
-                calculateValue()
-                checkingIfTheNumberIsDouble(calculateValue())
-            }
-        }
-    }
 }
