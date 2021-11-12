@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/mathOperations"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="bottom|end"
+        android:paddingEnd="@dimen/padding_small"
+        android:textColor="@color/darkGrey"
+        android:textSize="@dimen/text_size_big"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/clearButton"
+        app:layout_constraintEnd_toStartOf="@id/clearButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/resultText"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="bottom|end"
+        android:paddingEnd="@dimen/padding_small"
+        android:textColor="@color/darkGrey"
+        android:textSize="@dimen/text_size_big"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/clearButton"
+        app:layout_constraintEnd_toStartOf="@id/clearButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/okayButton" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/okayButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:backgroundTint="@color/grey"
+        android:text="@string/activity_calculator_okay_label"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/clearButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/clearButton"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/clearButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:backgroundTint="@color/grey"
+        android:text="@string/activity_calculator_clear_text"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/division"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/division"
+        app:layout_constraintTop_toBottomOf="@id/okayButton" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonSix"
+        style="@style/CharButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="@dimen/margin_small"
+        android:backgroundTint="@color/grey"
+        android:text="@string/activity_calculator_number_six_label"
+        app:layout_constraintBottom_toTopOf="@id/buttonThree"
+        app:layout_constraintEnd_toStartOf="@id/multiplication"
+        app:layout_constraintStart_toEndOf="@id/buttonFive"
+        app:layout_constraintTop_toBottomOf="@id/buttonNine" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/multiplication"
+        style="@style/CharButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:backgroundTint="@color/grey"
+        android:text="@string/activity_calculator_multiplication_star_label"
+        app:layout_constraintBottom_toTopOf="@id/subtraction"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.168"
+        app:layout_constraintStart_toEndOf="@id/buttonSix"
+        app:layout_constraintTop_toBottomOf="@id/division"
+        app:layout_constraintVertical_bias="0.4" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/division"
+        style="@style/CharButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:backgroundTint="@color/grey"
+        android:text="@string/activity_calculator_division_label"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.168"
+        app:layout_constraintStart_toEndOf="@id/buttonNine"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.4" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonNine"
+        style="@style/CharButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="@dimen/margin_small"
+        android:backgroundTint="@color/grey"
+        android:text="@string/activity_calculator_number_nine_label"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/division"
+        app:layout_constraintHeight_percent="0.168"
+        app:layout_constraintStart_toEndOf="@id/buttonEight"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.4" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonThree"
+        style="@style/CharButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="@dimen/margin_small"
+        android:backgroundTint="@color/grey"
+        android:text="@string/activity_calculator_number_three_label"
+        app:layout_constraintBottom_toTopOf="@id/equality"
+        app:layout_constraintEnd_toStartOf="@id/subtraction"
+        app:layout_constraintStart_toEndOf="@id/buttonTwo"
+        app:layout_constraintTop_toBottomOf="@id/buttonSix" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonTwo"
+        style="@style/CharButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="@dimen/margin_small"
+        android:backgroundTint="@color/grey"
+        android:text="@string/activity_calculator_number_two_label"
+        app:layout_constraintBottom_toTopOf="@id/equality"
+        app:layout_constraintEnd_toStartOf="@id/buttonThree"
+        app:layout_constraintStart_toEndOf="@id/buttonOne"
+        app:layout_constraintTop_toBottomOf="@id/buttonFive" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonFour"
+        style="@style/CharButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="@dimen/margin_small"
+        android:backgroundTint="@color/grey"
+        android:text="@string/activity_calculator_number_four_label"
+        app:layout_constraintBottom_toTopOf="@id/buttonOne"
+        app:layout_constraintEnd_toStartOf="@id/buttonFive"
+        app:layout_constraintHeight_percent="0.168"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buttonSeven"
+        app:layout_constraintVertical_bias="0.4" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonSeven"
+        style="@style/CharButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="@dimen/margin_small"
+        android:backgroundTint="@color/grey"
+        android:text="@string/activity_calculator_number_seven_label"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/buttonEight"
+        app:layout_constraintHeight_percent="0.168"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.4" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonOne"
+        style="@style/CharButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="@dimen/margin_small"
+        android:backgroundTint="@color/grey"
+        android:text="@string/activity_calculator_number_one_label"
+        app:layout_constraintBottom_toTopOf="@id/equality"
+        app:layout_constraintEnd_toStartOf="@id/buttonTwo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buttonFour" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/subtraction"
+        style="@style/CharButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:backgroundTint="@color/grey"
+        android:text="@string/activity_calculator_subtraction_minus_label"
+        app:layout_constraintBottom_toTopOf="@id/equality"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/buttonThree"
+        app:layout_constraintTop_toBottomOf="@id/multiplication" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonEight"
+        style="@style/CharButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="@dimen/margin_small"
+        android:backgroundTint="@color/grey"
+        android:text="@string/activity_calculator_number_eight_label"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/buttonNine"
+        app:layout_constraintHeight_percent="0.168"
+        app:layout_constraintStart_toEndOf="@id/buttonSeven"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.4" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonFive"
+        style="@style/CharButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="@dimen/margin_small"
+        android:backgroundTint="@color/grey"
+        android:text="@string/activity_calculator_number_five_label"
+        app:layout_constraintBottom_toTopOf="@id/buttonTwo"
+        app:layout_constraintEnd_toStartOf="@id/buttonSix"
+        app:layout_constraintHeight_percent="0.168"
+        app:layout_constraintStart_toEndOf="@id/buttonFour"
+        app:layout_constraintTop_toBottomOf="@id/buttonEight"
+        app:layout_constraintVertical_bias="0.4" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonZero"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="@dimen/margin_small"
+        android:backgroundTint="@color/grey"
+        android:text="@string/activity_calculator_number_zero_label"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/equality"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buttonOne" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/equality"
+        style="@style/CharButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="@dimen/margin_small"
+        android:backgroundTint="@color/grey"
+        android:text="@string/activity_calculator_equality_label"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.675"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buttonThree"
+        app:layout_constraintWidth_percent="0.24" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/addition"
+        style="@style/CharButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/margin_small"
+        android:backgroundTint="@color/grey"
+        android:text="@string/activity_calculator_addition_plus_label"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/equality"
+        app:layout_constraintTop_toBottomOf="@id/subtraction" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

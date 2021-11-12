@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Calculator3" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.Calculator3" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_200</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -12,5 +12,37 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+    </style>
+
+    <style name="CharButton">
+        <item name="backgroundTint">@color/grey</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="SavedValues">
+        <item name="android:layout_marginTop">@dimen/margin_large</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/text_size_middle</item>
+    </style>
+
+    <style name="SavedValuesLandscape">
+        <item name="android:layout_marginTop">@dimen/margin_large</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/text_size_middle</item>
+    </style>
+
+    <style name="ActivityMainButtons">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/text_size_small</item>
+        <item name="backgroundTint">@color/grey</item>
+    </style>
+
+    <style name="ActivityMainButtonsLandscape">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/text_size_small</item>
+        <item name="backgroundTint">@color/grey</item>
     </style>
 </resources>
