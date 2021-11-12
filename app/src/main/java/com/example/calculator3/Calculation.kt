@@ -9,7 +9,7 @@ class Calculation {
         private const val DIVISION = "/"
     }
 
-    fun calculatePlusMinus(passedList: MutableList<Any>): Int {
+    fun calculatePlusMinus(passedList: List<Any>): Int {
         var result = passedList[0] as Int
         for (i in passedList.indices) {
             if (passedList[i] is Char && i != passedList.lastIndex) {
@@ -26,7 +26,7 @@ class Calculation {
         return result
     }
 
-    fun finishCalculationTimesDivision(passedList: MutableList<Any>): MutableList<Any> {
+    fun finishCalculationTimesDivision(passedList: List<Any>): List<Any> {
         var list = passedList
         while (list.contains(MULTIPLICATION_STAR) || list.contains(DIVISION)
         ) {
@@ -35,8 +35,8 @@ class Calculation {
         return list
     }
 
-    private fun startCalculationTimesDivision(passedList: MutableList<Any>): MutableList<Any> {
-        val newList = mutableListOf<Any>()
+    private fun startCalculationTimesDivision(passedList: List<Any>): List<Any> {
+        val listOfNumbersAndOperators = mutableListOf<Any>()
         var restartIndex = passedList.size
 
         for (i in passedList.indices) {
@@ -46,27 +46,27 @@ class Calculation {
                 val nextDigit = passedList[i + 1] as Int
                 when (operator) {
                     MULTIPLICATION_STAR -> {
-                        newList.add(prevDigit * nextDigit)
+                        listOfNumbersAndOperators.add(prevDigit * nextDigit)
                         restartIndex = i + 1
                     }
                     DIVISION -> {
-                        newList.add(prevDigit / nextDigit)
+                        listOfNumbersAndOperators.add(prevDigit / nextDigit)
                         restartIndex = i + 1
                     }
                     else -> {
-                        newList.add(prevDigit)
-                        newList.add(operator)
+                        listOfNumbersAndOperators.add(prevDigit)
+                        listOfNumbersAndOperators.add(operator)
                     }
                 }
             }
             if (i > restartIndex) {
-                newList.add(passedList[i])
+                listOfNumbersAndOperators.add(passedList[i])
             }
         }
-        return newList
+        return listOfNumbersAndOperators
     }
 
-    fun separateInputLine(input: String): MutableList<Any> {
+    fun separateInputLine(input: String): List<Any> {
         val list = mutableListOf<Any>()
         var currentDigit = ""
         for (character in input) {
@@ -78,7 +78,7 @@ class Calculation {
                 list.add(character)
             }
         }
-        if (currentDigit != "") {
+        if (currentDigit.isNotEmpty()) {
             list.add(currentDigit.toInt())
         }
         return list
