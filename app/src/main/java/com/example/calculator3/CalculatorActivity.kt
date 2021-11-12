@@ -10,12 +10,12 @@ class CalculatorActivity : AppCompatActivity() {
     companion object {
         private const val RESULT_KEY = "RESULT_KEY"
         private const val MATH_OPERATIONS_KEY = "MATH_OPERATIONS_KEY"
-        private const val EXTRA_RESULT = "RESULT"
         private const val DIVISION_BY_ZERO = "/0"
     }
 
     private lateinit var binding: ActivityCalculatorBinding
     private var canAddOperation = false
+    private val calculation = Calculation()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,7 +81,7 @@ class CalculatorActivity : AppCompatActivity() {
     private fun setOkayButtonListener() {
         binding.okayButton.setOnClickListener {
             setResult(RESULT_OK, intent.apply {
-                putExtra(EXTRA_RESULT, binding.resultText.text)
+                putExtra(MainActivity.EXTRA_RESULT, binding.resultText.text)
             })
             finish()
         }
@@ -108,89 +108,16 @@ class CalculatorActivity : AppCompatActivity() {
         if (binding.mathOperations.text.contains(DIVISION_BY_ZERO)) {
             binding.equality.text = getString(R.string.activity_calculator_division_by_zero)
         } else {
-            if (separateInputLine().isEmpty()) {
+            if (calculation.separateInputLine(binding.mathOperations.text.toString()).isEmpty()) {
                 binding.resultText.text = ""
             }
-            val timesDivision = finishCalculationTimesDivision(separateInputLine())
+            val timesDivision =
+                calculation.finishCalculationTimesDivision(calculation.separateInputLine(binding.mathOperations.text.toString()))
             if (timesDivision.isEmpty()) {
                 binding.resultText.text = ""
             }
-            binding.resultText.text = calculatePlusMinus(timesDivision).toString()
+            binding.resultText.text = calculation.calculatePlusMinus(timesDivision).toString()
         }
-    }
-
-    private fun calculatePlusMinus(passedList: MutableList<Any>): Int {
-        var result = passedList[0] as Int
-        for (i in passedList.indices) {
-            if (passedList[i] is Char && i != passedList.lastIndex) {
-                val operator = passedList[i]
-                val nextDigit = passedList[i + 1] as Int
-                if (operator == '+') {
-                    result += nextDigit
-                }
-                if (operator == '-') {
-                    result -= nextDigit
-                }
-            }
-        }
-        return result
-    }
-
-    private fun finishCalculationTimesDivision(passedList: MutableList<Any>): MutableList<Any> {
-        var list = passedList
-        while (list.contains('*') || list.contains('/')) {
-            list = startCalculationTimesDivision(list)
-        }
-        return list
-    }
-
-    private fun startCalculationTimesDivision(passedList: MutableList<Any>): MutableList<Any> {
-        val newList = mutableListOf<Any>()
-        var restartIndex = passedList.size
-
-        for (i in passedList.indices) {
-            if (passedList[i] is Char && i != passedList.lastIndex && i < restartIndex) {
-                val operator = passedList[i]
-                val prevDigit = passedList[i - 1] as Int
-                val nextDigit = passedList[i + 1] as Int
-                when (operator) {
-                    '*' -> {
-                        newList.add(prevDigit * nextDigit)
-                        restartIndex = i + 1
-                    }
-                    '/' -> {
-                        newList.add(prevDigit / nextDigit)
-                        restartIndex = i + 1
-                    }
-                    else -> {
-                        newList.add(prevDigit)
-                        newList.add(operator)
-                    }
-                }
-            }
-            if (i > restartIndex) {
-                newList.add(passedList[i])
-            }
-        }
-        return newList
-    }
-
-    private fun separateInputLine(): MutableList<Any> {
-        val list = mutableListOf<Any>()
-        var currentDigit = ""
-        for (character in binding.mathOperations.text) {
-            if (character.isDigit()) {
-                currentDigit += character
-            } else {
-                list.add(currentDigit.toInt())
-                currentDigit = ""
-                list.add(character)
-            }
-        }
-        if (currentDigit != "") {
-            list.add(currentDigit.toInt())
-        }
-        return list
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -206,5 +133,4 @@ class CalculatorActivity : AppCompatActivity() {
         binding.mathOperations.text = savedInstanceState.getString(MATH_OPERATIONS_KEY)
         binding.resultText.text = savedInstanceState.getString(RESULT_KEY)
     }
-
 }
