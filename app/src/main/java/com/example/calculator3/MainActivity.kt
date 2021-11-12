@@ -5,14 +5,13 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.calculator3.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
     companion object {
-        private const val EXTRA_RESULT = "RESULT"
+        const val EXTRA_RESULT = "RESULT"
         private const val LINE_SEPARATOR = "\n"
         private const val SHARED_PREFERENCES = "SHARED_PREFERENCES"
         private const val REQUEST_CODE = 1
@@ -40,14 +39,12 @@ class MainActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
-            val result = data?.getStringExtra(EXTRA_RESULT)
-            binding.currentValueResult.text = result
+            binding.currentValueResult.text = data?.getStringExtra(EXTRA_RESULT)
         }
     }
 
     private fun loadDataFromSharedPreferences() {
         binding.savedValueText.text = sharedPreferences.getString(EXTRA_RESULT, null)
-        Log.e("Smt", "${sharedPreferences.getString(EXTRA_RESULT, null)}")
     }
 
     private fun saveButtonListener() {
